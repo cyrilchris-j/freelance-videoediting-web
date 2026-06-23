@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Film, Menu, X } from "lucide-react";
+import { Film, Menu, X, Zap } from "lucide-react";
 
 const links = [
   { label: "Home", href: "#hero" },
@@ -22,9 +22,23 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const handleNav = (href: string) => {
     setMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
 
   return (
@@ -34,24 +48,28 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "glass-nav"
-            : "bg-transparent"
+          scrolled || menuOpen ? "glass-nav" : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleNav("#hero")}>
-            <div className="w-9 h-9 rounded-lg bg-[#00aaff] flex items-center justify-center shadow-[0_0_18px_rgba(0,170,255,0.6)]">
-              <Film className="w-5 h-5 text-[#050508]" />
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <div
+            className="flex items-center gap-2.5 cursor-pointer"
+            onClick={() => handleNav("#hero")}
+          >
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#00aaff] flex items-center justify-center shadow-[0_0_18px_rgba(0,170,255,0.6)] flex-shrink-0">
+              <Film className="w-4 h-4 sm:w-5 sm:h-5 text-[#050508]" />
             </div>
-            <div>
-              <span className="text-white font-bold tracking-wide" style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "1.1rem" }}>
-                Star edit<span className="text-[#00aaff]">Pro</span> Studio
-              </span>
-            </div>
+            <span
+              className="text-white font-bold tracking-wide text-base sm:text-lg"
+              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            >
+              Star edit<span className="text-[#00aaff]">Pro</span>
+            </span>
           </div>
 
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-7">
             {links.map((l) => (
               <button
                 key={l.href}
@@ -70,42 +88,108 @@ export function Navbar() {
             </button>
           </div>
 
-          <button className="md:hidden text-[#8890a8] hover:text-white" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {/* Mobile hamburger — large tap target */}
+          <button
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg text-[#8890a8] hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-all"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {menuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-5 h-5" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-5 h-5" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </motion.nav>
 
+      {/* Mobile full-screen drawer */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed top-16 left-0 right-0 z-40 p-6 flex flex-col gap-4 md:hidden"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 z-40 md:hidden flex flex-col"
             style={{
-              background: "rgba(8, 8, 18, 0.85)",
-              backdropFilter: "blur(28px) saturate(180%)",
-              WebkitBackdropFilter: "blur(28px) saturate(180%)",
-              borderBottom: "1px solid rgba(0,170,255,0.15)",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
+              background: "rgba(5, 5, 10, 0.97)",
+              backdropFilter: "blur(32px) saturate(180%)",
+              WebkitBackdropFilter: "blur(32px) saturate(180%)",
+              paddingTop: "64px", // height of navbar
             }}
           >
-            {links.map((l) => (
-              <button
-                key={l.href}
-                onClick={() => handleNav(l.href)}
-                className="text-left text-[#e8eaf0] hover:text-[#00aaff] py-2 border-b border-[rgba(255,255,255,0.05)] transition-colors"
-              >
-                {l.label}
-              </button>
-            ))}
-            <button
-              onClick={() => handleNav("#order")}
-              className="mt-2 px-5 py-3 rounded-lg bg-[#00aaff] text-[#050508] font-semibold text-center"
+            {/* Nav links — large touch targets */}
+            <div className="flex-1 flex flex-col justify-center px-8 gap-1">
+              {links.map((l, i) => (
+                <motion.button
+                  key={l.href}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 + 0.1 }}
+                  onClick={() => handleNav(l.href)}
+                  className="group flex items-center justify-between w-full py-4 border-b text-left transition-colors duration-200"
+                  style={{ borderColor: "rgba(255,255,255,0.05)" }}
+                >
+                  <span
+                    className="text-[#c0c8d8] group-hover:text-[#00aaff] text-2xl font-bold transition-colors"
+                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  >
+                    {l.label}
+                  </span>
+                  <span className="text-[#00aaff] opacity-0 group-hover:opacity-100 transition-opacity text-lg">
+                    →
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Bottom CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="px-8 pb-10 pt-6"
             >
-              Order Now
-            </button>
+              <button
+                onClick={() => handleNav("#order")}
+                className="w-full py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg, #00aaff, #0066cc)",
+                  color: "#050508",
+                  fontFamily: "'Rajdhani', sans-serif",
+                  letterSpacing: "0.06em",
+                  boxShadow: "0 0 30px rgba(0,170,255,0.35)",
+                }}
+              >
+                <Zap className="w-5 h-5" />
+                Order Now
+              </button>
+              <p
+                className="text-center text-[#8890a8] text-xs mt-3"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                Response within 1 hour
+              </p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

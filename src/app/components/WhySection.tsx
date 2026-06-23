@@ -38,7 +38,7 @@ const reasons = [
 
 export function WhySection() {
   return (
-    <section id="why" className="py-28 px-6 relative overflow-hidden">
+    <section id="why" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[#050508]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,170,255,0.3)] to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,170,255,0.3)] to-transparent" />

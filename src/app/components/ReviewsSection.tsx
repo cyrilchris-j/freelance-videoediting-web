@@ -36,7 +36,7 @@ const reviews = [
 
 export function ReviewsSection() {
   return (
-    <section id="reviews" className="py-28 px-6 relative overflow-hidden">
+    <section id="reviews" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[#08080f]" />
       <div className="absolute inset-0" style={{
         backgroundImage: `radial-gradient(circle at 50% 100%, rgba(0,170,255,0.05) 0%, transparent 60%)`

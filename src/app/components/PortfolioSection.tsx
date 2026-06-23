@@ -63,7 +63,7 @@ const tagColors: Record<string, string> = {
 
 export function PortfolioSection() {
   return (
-    <section id="portfolio" className="py-28 px-6 relative overflow-hidden">
+    <section id="portfolio" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[#08080f]" />
       <div className="absolute inset-0" style={{
         backgroundImage: `linear-gradient(rgba(0,170,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,170,255,0.025) 1px, transparent 1px)`,

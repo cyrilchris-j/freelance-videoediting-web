@@ -41,7 +41,7 @@ export function OrderForm() {
   };
 
   return (
-    <section id="order" className="py-28 px-6 relative overflow-hidden">
+    <section id="order" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[#050508]" />
       <div className="absolute inset-0" style={{
         backgroundImage: `radial-gradient(circle at 50% 50%, rgba(0,170,255,0.06) 0%, transparent 60%)`
@@ -73,7 +73,7 @@ export function OrderForm() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="rounded-2xl p-8"
+          className="rounded-2xl p-5 sm:p-8"
           style={{
             background: "rgba(10, 10, 24, 0.70)",
             backdropFilter: "blur(28px) saturate(200%)",
@@ -164,7 +164,7 @@ export function OrderForm() {
                 <label className="block text-[#8890a8] text-sm mb-2" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
                   Select Package *
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                   {packageOptions.map((p) => (
                     <label key={p} className="cursor-pointer">
                       <input

@@ -60,7 +60,7 @@ export function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="py-28 px-6 relative overflow-hidden">
+    <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[#050508]">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 50% 0%, rgba(0,170,255,0.06) 0%, transparent 60%)`
@@ -89,7 +89,7 @@ export function PricingSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
           {plans.map((plan, i) => {
             const BadgeIcon = plan.badgeIcon;
             const isPopular = plan.badge === "Most Popular";
@@ -112,7 +112,7 @@ export function PricingSection() {
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{ boxShadow: `0 0 60px ${plan.glowColor}` }} />
                 )}
-                <div className="relative rounded-2xl p-8 h-full flex flex-col"
+                <div className="relative rounded-2xl pt-8 sm:pt-8 px-6 sm:px-8 pb-6 sm:pb-8 h-full flex flex-col"
                   style={{
                     background: isPopular
                       ? "rgba(8, 16, 34, 0.75)"

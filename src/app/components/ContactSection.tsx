@@ -36,7 +36,7 @@ const contacts = [
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-28 px-6 relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[#08080f]" />
       <div className="absolute inset-0" style={{
         backgroundImage: `radial-gradient(circle at 50% 50%, rgba(0,170,255,0.04) 0%, transparent 70%)`
