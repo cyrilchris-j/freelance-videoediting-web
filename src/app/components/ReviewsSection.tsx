@@ -74,7 +74,7 @@ export function ReviewsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="relative rounded-2xl p-8 group"
+              className="relative rounded-2xl p-8 group flex flex-col h-full"
               style={{
                 background: "rgba(10, 10, 20, 0.60)",
                 backdropFilter: "blur(20px) saturate(180%)",
@@ -87,31 +87,31 @@ export function ReviewsSection() {
                 <Quote className="w-10 h-10" style={{ color: r.color }} />
               </div>
 
-              <div className="flex items-center gap-1 mb-5">
-                {[1,2,3,4,5].map(s => (
-                  <Star key={s} className="w-4 h-4 fill-[#ffaa00] text-[#ffaa00]" />
-                ))}
+              <div className="flex items-center justify-between mb-6 relative z-10">
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(s => (
+                    <Star key={s} className="w-4 h-4 fill-[#ffaa00] text-[#ffaa00]" />
+                  ))}
+                </div>
+                <span className="px-3 py-1 rounded-full text-[0.7rem] font-bold tracking-wider uppercase whitespace-nowrap border" style={{ background: `${r.color}10`, borderColor: `${r.color}30`, color: r.color, fontFamily: "'JetBrains Mono', monospace" }}>
+                  {r.project}
+                </span>
               </div>
 
-              <p className="text-[#c0c8d8] mb-6 leading-relaxed" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.92rem" }}>
+              <p className="text-[#c0c8d8] mb-8 leading-relaxed flex-1 text-base relative z-10" style={{ fontFamily: "'Inter', sans-serif" }}>
                 "{r.text}"
               </p>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4 mt-auto pt-5 border-t border-white/5 relative z-10">
                 <img
                   src={r.avatar}
                   alt={r.alt}
-                  className="w-11 h-11 rounded-full object-cover"
-                  style={{ border: `2px solid ${r.color}40` }}
+                  className="w-12 h-12 rounded-full object-cover"
+                  style={{ border: `2px solid ${r.color}50`, boxShadow: `0 0 15px ${r.color}20` }}
                 />
                 <div>
-                  <div className="text-white font-semibold text-sm" style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "1rem" }}>{r.name}</div>
-                  <div className="text-[#8890a8] text-xs" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{r.role}</div>
-                </div>
-                <div className="ml-auto">
-                  <span className="px-2.5 py-1 rounded-md text-xs" style={{ background: `${r.color}15`, color: r.color, fontFamily: "'JetBrains Mono', monospace" }}>
-                    {r.project}
-                  </span>
+                  <div className="text-white font-bold" style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "1.1rem" }}>{r.name}</div>
+                  <div className="text-[#8890a8] text-sm" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{r.role}</div>
                 </div>
               </div>
             </motion.div>
