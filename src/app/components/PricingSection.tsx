@@ -101,7 +101,7 @@ export function PricingSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="relative rounded-2xl p-px overflow-hidden cursor-pointer group"
+                className="relative rounded-[17px] p-px cursor-pointer group"
                 style={{
                   background: isPopular
                     ? `linear-gradient(135deg, ${plan.color}50, ${plan.color}20, transparent)`
@@ -125,8 +125,8 @@ export function PricingSection() {
                   }}>
 
                   {plan.badge && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase"
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                      <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase whitespace-nowrap"
                         style={{
                           background: plan.color,
                           color: "#050508",
