@@ -1,4 +1,4 @@
-# 🎬 Freelance Video Editing Platform
+ 🎬 Freelance Video Editing Platform
 
 A modern web platform that connects clients with professional video editing services. Users can submit their video editing requirements, share project details, and contact editors for customized editing solutions.
 
